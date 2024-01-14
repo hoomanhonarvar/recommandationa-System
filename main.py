@@ -34,5 +34,15 @@ rating=pd.read_csv('./ml-latest-small/ratings.csv')
 links=pd.read_csv('./ml-latest-small/links.csv')
 tags=pd.read_csv('./ml-latest-small/tags.csv')
 movies=pd.read_csv('./ml-latest-small/movies.csv')
-rating.drop(columns=['timestamp'])
-S=rating.to_numpy()
+# print(type(movies.loc[1][0]))
+NUMBER_OF_MOVIES=int(movies.max(axis='rows')[0])
+NUMBER_OF_USERS=int(rating.max(axis='rows')[0])
+
+S = np.zeros((NUMBER_OF_USERS+1,NUMBER_OF_MOVIES+1))
+for i in range(0,np.shape(rating)[0]):
+    S[int(rating.loc[i][0])][int(rating.loc[i][1])]=rating.loc[i][2]
+
+
+# S=rating.to_numpy()
+
+
