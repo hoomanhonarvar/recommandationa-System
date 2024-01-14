@@ -4,6 +4,9 @@ import numpy
 import pandas as pd
 import numpy as np
 from numpy import linalg as LA
+from numpy.linalg import norm
+
+
 def SVD(S):
     S_transpose = S.transpose()
     STS = np.dot(S,S_transpose)
@@ -41,8 +44,21 @@ def SVDpp(S,p):
     VT_p=VT[:p,:]
     return U_p,sigma_p,VT_p
 
+def cosine_similarity(mat,vec,k):
+   cosine= np.dot(mat, vec) / (norm(mat, axis=1) * norm(vec))
+   cosine=np.sort(cosine)
+   return cosine[:k]
+
+def cosine_similarity(A,B):
+    return  np.dot(A,B)/(norm(A)*norm(B))
+
+
+
 def prediction(user_id,S,p):
-    U, sigma, VT = SVD(S)
+    U, sigma, VT = SVDpp(S,p)
+
+
+
 
 
 rating=pd.read_csv('./ml-latest-small/ratings.csv')
