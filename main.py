@@ -41,7 +41,7 @@ def SVDpp(S,p):
 #getting the cosine_similarity of prediction of recommendation model
 def prediction(user_id,S):
     U, sigma, VT = SVD(S)
-    cosine_similarity = (U[user_id].dot(sigma)).dot(VT) / (norm(VT) * norm(U[user_id].dot(sigma)))
+    cosine_similarity = (U[:][user_id].dot(sigma)).dot(VT.transpose()) / (norm(VT.transpose()) * norm(U[:][user_id].dot(sigma)))
     return cosine_similarity
 
 
@@ -71,8 +71,8 @@ predict=prediction(a-1,S)
 predict=np.ravel(predict)
 #picking index of 10 first biggest elements in array
 ind=np.argpartition(predict,-10)[-10:]
-print(ind[np.argsort(predict[ind])])
 for i in ind[np.argsort(predict[ind])]:
     print(movies.loc[i])
+    print("\n\n----------------------------------------------------\n\n")
 
 
